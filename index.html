@@ -243,6 +243,28 @@
     @media (prefers-reduced-motion: reduce) {
       .stage > * { animation: none !important; }
     }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at center, var(--accent-faint) 0%, transparent 60%);
+      opacity: 1;
+      animation: vignette-pulse 4s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .stage { position: relative; z-index: 1; }
+
+    @keyframes vignette-pulse {
+      0%, 100% { opacity: 0.85; }
+      50%      { opacity: 1.25; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::before { animation: none !important; }
+    }
   </style>
 </head>
 <body>

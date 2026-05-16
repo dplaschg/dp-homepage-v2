@@ -208,6 +208,22 @@
       width: 0%;
       pointer-events: none;
     }
+
+    @keyframes eq-pulse-a { 0%, 100% { height: 25%; } 50% { height: 85%; } }
+    @keyframes eq-pulse-b { 0%, 100% { height: 60%; } 50% { height: 30%; } }
+    @keyframes eq-pulse-c { 0%, 100% { height: 40%; } 30% { height: 95%; } 70% { height: 20%; } }
+    @keyframes eq-pulse-d { 0%, 100% { height: 70%; } 40% { height: 35%; } 80% { height: 90%; } }
+
+    .player.is-playing .player-eq span {
+      opacity: 1;
+      animation-duration: 0.9s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+    .player.is-playing .player-eq span:nth-child(4n+1) { animation-name: eq-pulse-a; }
+    .player.is-playing .player-eq span:nth-child(4n+2) { animation-name: eq-pulse-b; animation-delay: 0.1s; }
+    .player.is-playing .player-eq span:nth-child(4n+3) { animation-name: eq-pulse-c; animation-delay: 0.2s; }
+    .player.is-playing .player-eq span:nth-child(4n)   { animation-name: eq-pulse-d; animation-delay: 0.3s; }
   </style>
 </head>
 <body>

@@ -82,6 +82,27 @@
       color: var(--accent-dim);
       max-width: 280px;
     }
+
+    .contact {
+      display: flex;
+      gap: 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: lowercase;
+      margin-top: 4px;
+    }
+
+    .contact a {
+      color: var(--accent-dim);
+      text-decoration: none;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .contact .sep {
+      color: var(--accent-dim);
+      opacity: 0.4;
+    }
   </style>
 </head>
 <body>
@@ -94,6 +115,13 @@
     <h1 class="name">Daniel Plaschg</h1>
     <p class="tagline">growth_consultant</p>
     <p class="microcopy">Say hi — drop me a line whenever.</p>
+    <nav class="contact" aria-label="Contact">
+      <a href="mailto:daniel.plaschg@gmail.com">email</a>
+      <span class="sep">·</span>
+      <a href="# LINKEDIN_URL" target="_blank" rel="noopener noreferrer">linkedin</a>
+      <span class="sep">·</span>
+      <a href="# INSTAGRAM_URL" target="_blank" rel="noopener noreferrer">instagram</a>
+    </nav>
   </main>
   <script></script>
 </body>

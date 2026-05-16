@@ -254,6 +254,66 @@
       <a href="# INSTAGRAM_URL" target="_blank" rel="noopener noreferrer">instagram</a>
     </nav>
   </main>
-  <script></script>
+  <script>
+    // TODO: replace with your own tracks. You are responsible for the rights.
+    const tracks = [
+      { title: "track one", src: "audio/track-01.mp3" },
+      { title: "track two", src: "audio/track-02.mp3" },
+      { title: "track three", src: "audio/track-03.mp3" },
+    ];
+
+    const player = document.querySelector(".player");
+    const trackLabel = document.getElementById("trackLabel");
+    const btnPrev = document.querySelector(".btn-prev");
+    const btnPlay = document.querySelector(".btn-play");
+    const btnNext = document.querySelector(".btn-next");
+    const iconPlay = document.getElementById("iconPlay");
+    const progressTrack = document.getElementById("progressTrack");
+    const progressFill = document.getElementById("progressFill");
+
+    const audio = new Audio();
+    audio.preload = "metadata";
+    let currentIndex = 0;
+    let isPlaying = false;
+
+    const ICON_PLAY = '<polygon points="6,4 20,12 6,20"/>';
+    const ICON_PAUSE = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+
+    function loadTrack(index, autoplay) {
+      currentIndex = (index + tracks.length) % tracks.length;
+      const t = tracks[currentIndex];
+      audio.src = t.src;
+      trackLabel.textContent = t.title;
+      if (autoplay) {
+        audio.play().catch(() => { /* user gesture required or file missing */ });
+      }
+    }
+
+    function setPlayingState(playing) {
+      isPlaying = playing;
+      iconPlay.innerHTML = playing ? ICON_PAUSE : ICON_PLAY;
+      btnPlay.setAttribute("aria-label", playing ? "Pause" : "Play");
+      player.classList.toggle("is-playing", playing);
+    }
+
+    btnPlay.addEventListener("click", () => {
+      if (!audio.src) loadTrack(0, false);
+      if (audio.paused) {
+        audio.play().catch(() => {});
+      } else {
+        audio.pause();
+      }
+    });
+
+    btnPrev.addEventListener("click", () => loadTrack(currentIndex - 1, true));
+    btnNext.addEventListener("click", () => loadTrack(currentIndex + 1, true));
+
+    audio.addEventListener("play", () => setPlayingState(true));
+    audio.addEventListener("pause", () => setPlayingState(false));
+    audio.addEventListener("ended", () => loadTrack(currentIndex + 1, true));
+
+    // Initialize label without loading audio (avoids 404 noise before Task 12)
+    trackLabel.textContent = tracks[0].title;
+  </script>
 </body>
 </html>

@@ -1,0 +1,7 @@
+.DS_Store
+node_modules/
+.superpowers/
+.research/node_modules/
+.research/shots/
+.research/verify/
+.claude/settings.local.json

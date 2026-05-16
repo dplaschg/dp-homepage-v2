@@ -55,6 +55,33 @@
     }
 
     .logo svg { width: 100%; height: 100%; display: block; }
+
+    .name {
+      font-family: var(--font-display);
+      font-weight: 200;
+      font-size: clamp(28px, 4.2vw, 38px);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      color: var(--accent-dim);
+      text-transform: lowercase;
+    }
+
+    .microcopy {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--accent-dim);
+      max-width: 280px;
+    }
   </style>
 </head>
 <body>
@@ -64,6 +91,9 @@
         <text x="22" y="25" text-anchor="middle" font-family='"Inter Tight", ui-sans-serif, sans-serif' font-weight="200" font-size="26" letter-spacing="-1" fill="currentColor">DP</text>
       </svg>
     </div>
+    <h1 class="name">Daniel Plaschg</h1>
+    <p class="tagline">growth_consultant</p>
+    <p class="microcopy">Say hi — drop me a line whenever.</p>
   </main>
   <script></script>
 </body>

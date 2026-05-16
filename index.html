@@ -99,6 +99,13 @@
       transition: color 0.2s ease, text-shadow 0.2s ease;
     }
 
+    .contact a:hover,
+    .contact a:focus-visible {
+      color: var(--accent);
+      text-shadow: 0 0 8px rgba(103, 232, 249, 0.5);
+      outline: none;
+    }
+
     .contact .sep {
       color: var(--accent-dim);
       opacity: 0.4;
@@ -180,6 +187,12 @@
 
     .player-controls button:hover {
       transform: scale(1.08);
+    }
+
+    .player-controls button:focus-visible {
+      outline: 1px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 50%;
     }
 
     .player-controls svg {

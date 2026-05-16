@@ -224,6 +224,25 @@
     .player.is-playing .player-eq span:nth-child(4n+2) { animation-name: eq-pulse-b; animation-delay: 0.1s; }
     .player.is-playing .player-eq span:nth-child(4n+3) { animation-name: eq-pulse-c; animation-delay: 0.2s; }
     .player.is-playing .player-eq span:nth-child(4n)   { animation-name: eq-pulse-d; animation-delay: 0.3s; }
+
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .stage > * {
+      animation: rise-in 0.6s ease-out both;
+    }
+    .stage > .logo      { animation-delay: 0ms; }
+    .stage > .name      { animation-delay: 100ms; }
+    .stage > .tagline   { animation-delay: 200ms; }
+    .stage > .microcopy { animation-delay: 300ms; }
+    .stage > .player    { animation-delay: 400ms; }
+    .stage > .contact   { animation-delay: 500ms; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stage > * { animation: none !important; }
+    }
   </style>
 </head>
 <body>

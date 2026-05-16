@@ -103,6 +103,111 @@
       color: var(--accent-dim);
       opacity: 0.4;
     }
+
+    .player {
+      width: 100%;
+      max-width: 220px;
+      background: var(--device-bg);
+      border: 1px solid var(--device-border);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 0 0 rgba(103, 232, 249, 0);
+      transition: box-shadow 0.4s ease;
+    }
+
+    .player.is-playing {
+      box-shadow: 0 0 40px var(--device-glow);
+    }
+
+    .player-display {
+      background: rgba(103, 232, 249, 0.04);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 56px;
+      justify-content: center;
+    }
+
+    .player-track {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: lowercase;
+    }
+
+    .player-eq {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 14px;
+    }
+
+    .player-eq span {
+      flex: 1;
+      background: var(--accent);
+      border-radius: 1px;
+      height: 20%;
+      opacity: 0.6;
+    }
+
+    .player-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .player-controls button {
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, color 0.2s ease;
+    }
+
+    .player-controls button:hover {
+      transform: scale(1.08);
+    }
+
+    .player-controls svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+
+    .player-controls .btn-play svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .player-progress {
+      height: 2px;
+      background: rgba(103, 232, 249, 0.15);
+      border-radius: 1px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .player-progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 1px;
+      width: 0%;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -115,6 +220,32 @@
     <h1 class="name">Daniel Plaschg</h1>
     <p class="tagline">growth_consultant</p>
     <p class="microcopy">Say hi — drop me a line whenever.</p>
+    <section class="player" aria-label="Music player">
+      <div class="player-display">
+        <div class="player-track" id="trackLabel">— —</div>
+        <div class="player-eq" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="player-controls">
+        <button class="btn-prev" type="button" aria-label="Previous track">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="19,20 9,12 19,4" fill="currentColor"/><line x1="5" y1="4" x2="5" y2="20"/></svg>
+        </button>
+        <button class="btn-play" type="button" aria-label="Play">
+          <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg>
+        </button>
+        <button class="btn-next" type="button" aria-label="Next track">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="5,4 15,12 5,20" fill="currentColor"/><line x1="19" y1="4" x2="19" y2="20"/></svg>
+        </button>
+      </div>
+
+      <div class="player-progress" id="progressTrack" role="slider" aria-label="Track progress" tabindex="0">
+        <div class="player-progress-fill" id="progressFill"></div>
+      </div>
+    </section>
     <nav class="contact" aria-label="Contact">
       <a href="mailto:daniel.plaschg@gmail.com">email</a>
       <span class="sep">·</span>

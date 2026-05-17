@@ -5,3 +5,4 @@ node_modules/
 .research/shots/
 .research/verify/
 .claude/settings.local.json
+.vercel

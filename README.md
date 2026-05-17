@@ -13,14 +13,20 @@ python3 -m http.server 4242
 
 ### Social URLs
 
-Open `index.html` and find the strings `# LINKEDIN_URL` and `# INSTAGRAM_URL`. Replace each with the real URL.
+The Instagram and LinkedIn anchors live inside the `<p class="microcopy">` paragraph in `index.html`. Replace the `href` values to point elsewhere.
 
 ### Music tracks
 
-1. Drop your audio files (MP3 / M4A / WAV) into `audio/`.
-2. Edit the `tracks` array at the top of the `<script>` block in `index.html` — update `title` and `src` for each entry. Add or remove entries as needed.
+The player streams 30-second song previews from Apple's iTunes catalogue. Apple publishes these `previewUrl` endpoints for free public embedding — no key, no auth, no licensing fees on your end.
 
-**Important — music rights:** the bundled demo files in `audio/` are original sine-wave test tones generated for this build (pure math output, no third-party content). If you replace them with anything else, you are responsible for ensuring you have the rights to host and play that audio publicly. Owning a song on Spotify or having it in your iTunes library is not a license to stream it from your own website. Safe sources include your own recordings, tracks from royalty-free libraries (e.g. Pixabay Music, Free Music Archive, Epidemic Sound) under their stated licenses, or anything you have an explicit license for.
+To add, remove, or replace a track:
+
+1. Find the track on the iTunes Search API:
+   `https://itunes.apple.com/search?term=<artist+title>&entity=song&limit=5`
+2. Copy any result's `previewUrl`, `trackName`, and `artistName`.
+3. Edit the `tracks` array at the top of the `<script>` block in `index.html`. Each entry: `{ title, artist, src }`.
+
+If you'd rather host your own audio files (full-length or otherwise), drop them into `audio/`, set `src: "audio/your-file.mp3"`, and make sure you have the rights to stream them publicly. Owning a song on Spotify or having it in your iTunes library is not a license to host it on your own site.
 
 ## Verified browsers / viewports
 
@@ -28,4 +34,4 @@ Tested in Chrome at 1440×900 (desktop) and 390×844 (iPhone-class). Should work
 
 ## Deploying
 
-Any static host works: Vercel drop, Netlify drag-and-drop, GitHub Pages, Cloudflare Pages, S3, or your own server. Upload the directory; serve `index.html` at the root.
+Currently deployed on Vercel at `https://dp-homepage-v2.vercel.app`. Any other static host works too: Netlify drag-and-drop, GitHub Pages, Cloudflare Pages, S3, or your own server. Upload the directory; serve `index.html` at the root.

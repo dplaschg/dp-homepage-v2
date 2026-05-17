@@ -190,8 +190,16 @@
 
     .player-display-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 8px;
+    }
+
+    .player-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
     }
 
     .player-track {
@@ -204,7 +212,18 @@
       text-overflow: ellipsis;
       text-transform: lowercase;
       line-height: 1;
-      flex: 1;
+    }
+
+    .player-artist {
+      font-family: var(--font-pixel);
+      font-size: 13px;
+      color: rgba(5, 24, 32, 0.62);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: lowercase;
+      line-height: 1;
     }
 
     .player-led {
@@ -451,7 +470,10 @@
     <section class="player" aria-label="Music player">
       <div class="player-display">
         <div class="player-display-row">
-          <div class="player-track" id="trackLabel">— —</div>
+          <div class="player-info">
+            <div class="player-track" id="trackLabel">— —</div>
+            <div class="player-artist" id="artistLabel"></div>
+          </div>
           <div class="player-led" aria-hidden="true"></div>
         </div>
         <div class="player-eq" aria-hidden="true">
@@ -485,16 +507,35 @@
     </div>
   </main>
   <script>
-    // TODO: replace with your own tracks. You are responsible for the rights.
-    // The bundled .wav files are short, original sine-wave demo tones — placeholders only.
+    // Tracks are streamed as 30-second previews from Apple's iTunes catalogue.
+    // Apple makes these previewUrl endpoints publicly available for embedding.
+    // To swap a track: search https://itunes.apple.com/search?term=...&entity=song
+    // and copy the previewUrl of any result into `src` below.
     const tracks = [
-      { title: "demo tone — low",  src: "audio/track-01.wav" },
-      { title: "demo tone — mid",  src: "audio/track-02.wav" },
-      { title: "demo tone — high", src: "audio/track-03.wav" },
+      { title: "almost cut my hair",       artist: "crosby, stills, nash & young", src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/12/19/1f/12191ff8-11a3-ab23-e5b2-2e82aa17edd4/mzaf_1635643429278854980.plus.aac.p.m4a" },
+      { title: "misirlou",                 artist: "dick dale",                    src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/c8/c4/0c/c8c40c3c-03bf-f131-4435-4f98d9a9e1a9/mzaf_17359334185750005498.plus.aac.p.m4a" },
+      { title: "bombora",                  artist: "the atlantics",                src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4c/83/c9/4c83c9b3-27c2-10d3-eb6b-04371db2ef24/mzaf_355104646498212797.plus.aac.p.m4a" },
+      { title: "have love will travel",    artist: "the sonics",                   src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b3/e0/35/b3e0355c-a741-3fc3-f0f4-84d54236df22/mzaf_5319927000125297990.plus.aac.p.m4a" },
+      { title: "nightcall",                artist: "kavinsky",                     src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/0a/de/fd/0adefd5b-145a-1cc9-f3b5-be89fd0232b9/mzaf_4322553693875273982.plus.aac.p.m4a" },
+      { title: "the number of the beast",  artist: "iron maiden",                  src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/aa/bd/53/aabd53e7-cf4b-25ab-7e8f-16c83a0093eb/mzaf_15820260516501054922.plus.aac.p.m4a" },
+      { title: "breathe (in the air)",     artist: "pink floyd",                   src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e7/e0/d1/e7e0d14c-9f93-3c3d-3e3e-208b5e8a16bf/mzaf_11241407541493462411.plus.aac.p.m4a" },
+      { title: "white room",               artist: "cream",                        src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/72/37/2e/72372e14-ce8c-f1f1-7211-ab1118017f47/mzaf_9026571217938940097.plus.aac.p.m4a" },
+      { title: "time",                     artist: "pink floyd",                   src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/da/8b/ed/da8bed67-d37d-eb79-d045-ab9b2770d945/mzaf_17679948615611584950.plus.aac.p.m4a" },
+      { title: "kokain blues",             artist: "hubert von goisern",           src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ca/d5/95/cad59597-a405-4ca3-f84e-db4a72b13c09/mzaf_8314872339263283003.plus.aac.p.m4a" },
+      { title: "going up the country",     artist: "canned heat",                  src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/0c/74/7e/0c747efc-c5b8-7cad-9e54-d073d89874df/mzaf_14786809141410778490.plus.aac.p.m4a" },
+      { title: "venus",                    artist: "shocking blue",                src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/07/a6/4f/07a64fad-dc43-97d3-b715-24d7786e74d2/mzaf_12265440649720188557.plus.aac.p.m4a" },
+      { title: "rumble",                   artist: "link wray",                    src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/bf/3b/4a/bf3b4a8f-615c-fefc-f6e0-9cef86e351ae/mzaf_16755388477076384925.plus.aac.p.m4a" },
+      { title: "altes kamuffel",           artist: "paul kalkbrenner",             src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/81/22/2f/81222f2b-a7f7-e60f-74fa-2dbf06319398/mzaf_7071226344100890959.plus.aac.p.m4a" },
+      { title: "you ain't seen nothing yet", artist: "bachman-turner overdrive",   src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7d/52/8c/7d528c02-7bfd-fa03-1021-4ce7cee675f2/mzaf_11635404513687962202.plus.aac.p.m4a" },
+      { title: "child in time",            artist: "deep purple",                  src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/c4/ff/5c/c4ff5c16-a2a2-6bb8-8b31-f2a23e112924/mzaf_911573773766940862.plus.aac.p.m4a" },
+      { title: "l.a. woman",               artist: "the doors",                    src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/ea/e4/b3/eae4b331-a234-8c78-ca5c-d3a8c8713c78/mzaf_619979507652489578.plus.aac.p.m4a" },
+      { title: "surfin' bird",             artist: "the trashmen",                 src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/2b/58/17/2b581784-1af8-03f7-2702-d81840f5eebc/mzaf_7835137421131688854.plus.aac.p.m4a" },
+      { title: "ain't no easy way",        artist: "black rebel motorcycle club",  src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/9b/ab/2c/9bab2c7f-e70b-927e-58b6-9c2dbb50d6aa/mzaf_8392590529432242279.plus.aac.p.m4a" },
     ];
 
     const player = document.querySelector(".player");
     const trackLabel = document.getElementById("trackLabel");
+    const artistLabel = document.getElementById("artistLabel");
     const btnPrev = document.querySelector(".btn-prev");
     const btnPlay = document.querySelector(".btn-play");
     const btnNext = document.querySelector(".btn-next");
@@ -515,6 +556,7 @@
       const t = tracks[currentIndex];
       audio.src = t.src;
       trackLabel.textContent = t.title;
+      artistLabel.textContent = t.artist || "";
       if (autoplay) {
         audio.play().catch(() => { /* user gesture required or file missing */ });
       }
@@ -568,8 +610,9 @@
       if (e.key === "ArrowLeft") audio.currentTime = Math.max(0, audio.currentTime - 5);
     });
 
-    // Initialize label without loading audio (avoids 404 noise before Task 12)
+    // Initialize labels without loading audio (audio loads on first play tap)
     trackLabel.textContent = tracks[0].title;
+    artistLabel.textContent = tracks[0].artist || "";
   </script>
 </body>
 </html>

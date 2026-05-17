@@ -336,24 +336,27 @@
     }
 
     .player-wrap {
+      position: relative;
       width: 100%;
       max-width: 220px;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
     .cable {
-      width: 110px;
-      height: 220px;
-      margin-top: -4px;
+      position: absolute;
+      top: calc(100% - 10px);
+      right: 14px;
+      width: 130px;
+      height: 300px;
       pointer-events: none;
-      opacity: 0.9;
+      z-index: 2;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 96%);
+              mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 96%);
     }
 
-    .cable path { fill: none; stroke: var(--cable); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .cable .plug { fill: var(--cable); }
+    .cable path { fill: none; stroke: var(--cable); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .cable .plug-body { fill: #b6b6b6; }
+    .cable .plug-tip  { fill: #d4d4d4; }
 
     .hint {
       font-family: var(--font-pixel);
@@ -474,9 +477,10 @@
         <div class="player-progress-fill" id="progressFill"></div>
       </div>
     </section>
-    <svg class="cable" viewBox="0 0 110 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M 55 0 C 55 24 48 36 56 60 C 64 88 32 108 50 132 C 68 156 90 168 70 188 C 56 202 30 200 36 188" />
-      <circle class="plug" cx="36" cy="188" r="3" />
+    <svg class="cable" viewBox="0 0 130 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect class="plug-body" x="48" y="0"  width="34" height="14" rx="3"/>
+      <rect class="plug-tip"  x="58" y="14" width="14" height="6"  rx="1"/>
+      <path d="M 65 20 C 65 50 38 66 58 92 C 80 120 28 138 54 168 C 80 198 96 222 60 248 C 44 260 18 270 32 286"/>
     </svg>
     </div>
   </main>

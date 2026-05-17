@@ -556,6 +556,12 @@
       { title: "radar love",                     artist: "golden earring",             src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/e6/39/7f/e6397f09-e658-3bdd-579d-b6efd60c2d0a/mzaf_17467293884410754286.plus.aac.p.m4a" },
     ];
 
+    // Shuffle on every page load so the first-shown track is random.
+    for (let i = tracks.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [tracks[i], tracks[j]] = [tracks[j], tracks[i]];
+    }
+
     const player = document.querySelector(".player");
     const trackLabel = document.getElementById("trackLabel");
     const artistLabel = document.getElementById("artistLabel");

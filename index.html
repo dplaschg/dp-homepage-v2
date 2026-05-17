@@ -124,7 +124,7 @@
 
     .player {
       width: 100%;
-      max-width: 290px;
+      max-width: 220px;
       background: linear-gradient(180deg, var(--device-chassis-top), var(--device-chassis-bot));
       border: 1px solid var(--device-border);
       border-radius: 14px;
@@ -170,13 +170,6 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.06),
         inset 0 -1px 0 rgba(0, 0, 0, 0.4),
         0 0 40px var(--device-glow);
-    }
-
-    .player-top {
-      display: grid;
-      grid-template-columns: 1fr 56px;
-      gap: 10px;
-      align-items: stretch;
     }
 
     .player-display {
@@ -343,22 +336,34 @@
     }
 
     .player-wrap {
+      width: 100%;
+      max-width: 220px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0;
     }
 
     .cable {
-      width: 180px;
+      width: 110px;
       height: 220px;
-      margin-top: -6px;
+      margin-top: -4px;
       pointer-events: none;
-      opacity: 0.85;
+      opacity: 0.9;
     }
 
-    .cable path { fill: none; stroke: var(--cable); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .cable path { fill: none; stroke: var(--cable); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
     .cable .plug { fill: var(--cable); }
+
+    .hint {
+      font-family: var(--font-pixel);
+      font-size: 17px;
+      line-height: 1.3;
+      color: var(--accent-dim);
+      opacity: 0.85;
+      max-width: 320px;
+      margin-top: -10px;
+    }
 
     @keyframes eq-pulse-a { 0%, 100% { height: 25%; } 50% { height: 85%; } }
     @keyframes eq-pulse-b { 0%, 100% { height: 60%; } 50% { height: 30%; } }
@@ -388,7 +393,8 @@
     .stage > .name        { animation-delay: 100ms; }
     .stage > .tagline     { animation-delay: 200ms; }
     .stage > .microcopy   { animation-delay: 300ms; }
-    .stage > .player-wrap { animation-delay: 400ms; }
+    .stage > .hint        { animation-delay: 400ms; }
+    .stage > .player-wrap { animation-delay: 500ms; }
 
     @media (prefers-reduced-motion: reduce) {
       .stage > * { animation: none !important; }
@@ -432,53 +438,23 @@
     <h1 class="name">daniel plaschg</h1>
     <p class="tagline">growth consultant</p>
     <p class="microcopy">
-      drop me a line on
-      <a href="# INSTAGRAM_URL" target="_blank" rel="noopener noreferrer">instagram</a>,
-      <a href="# LINKEDIN_URL" target="_blank" rel="noopener noreferrer">linkedin</a>,
+      don't be a stranger — drop me a line on
+      <a href="https://www.instagram.com/daniel.plaschg/" target="_blank" rel="noopener noreferrer">instagram</a>,
+      <a href="https://www.linkedin.com/company/105149346" target="_blank" rel="noopener noreferrer">linkedin</a>,
       or by <a href="mailto:daniel.plaschg@gmail.com">email</a> :)
     </p>
+    <p class="hint">or hit play for a few of my favourite tracks ↓</p>
     <div class="player-wrap">
     <section class="player" aria-label="Music player">
-      <div class="player-top">
-        <div class="player-display">
-          <div class="player-display-row">
-            <div class="player-track" id="trackLabel">— —</div>
-            <div class="player-led" aria-hidden="true"></div>
-          </div>
-          <div class="player-eq" aria-hidden="true">
-            <span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span>
-          </div>
+      <div class="player-display">
+        <div class="player-display-row">
+          <div class="player-track" id="trackLabel">— —</div>
+          <div class="player-led" aria-hidden="true"></div>
         </div>
-        <div class="player-speaker" aria-hidden="true">
-          <svg viewBox="0 0 50 60" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="7"  cy="8"  r="2.6"/>
-            <circle cx="17" cy="8"  r="2.6"/>
-            <circle cx="27" cy="8"  r="2.6"/>
-            <circle cx="37" cy="8"  r="2.6"/>
-            <circle cx="43" cy="8"  r="2.6"/>
-            <circle cx="7"  cy="18" r="2.6"/>
-            <circle cx="17" cy="18" r="2.6"/>
-            <circle cx="27" cy="18" r="2.6"/>
-            <circle cx="37" cy="18" r="2.6"/>
-            <circle cx="43" cy="18" r="2.6"/>
-            <circle cx="7"  cy="28" r="2.6"/>
-            <circle cx="17" cy="28" r="2.6"/>
-            <circle cx="27" cy="28" r="2.6"/>
-            <circle cx="37" cy="28" r="2.6"/>
-            <circle cx="43" cy="28" r="2.6"/>
-            <circle cx="7"  cy="38" r="2.6"/>
-            <circle cx="17" cy="38" r="2.6"/>
-            <circle cx="27" cy="38" r="2.6"/>
-            <circle cx="37" cy="38" r="2.6"/>
-            <circle cx="43" cy="38" r="2.6"/>
-            <circle cx="7"  cy="48" r="2.6"/>
-            <circle cx="17" cy="48" r="2.6"/>
-            <circle cx="27" cy="48" r="2.6"/>
-            <circle cx="37" cy="48" r="2.6"/>
-            <circle cx="43" cy="48" r="2.6"/>
-          </svg>
+        <div class="player-eq" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
         </div>
       </div>
 
@@ -498,9 +474,9 @@
         <div class="player-progress-fill" id="progressFill"></div>
       </div>
     </section>
-    <svg class="cable" viewBox="0 0 180 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M 90 0 C 90 26 64 44 70 70 C 76 96 124 110 124 138 C 124 162 88 172 64 178 C 40 184 36 200 70 204 C 100 207 116 198 108 188" />
-      <circle class="plug" cx="108" cy="188" r="3" />
+    <svg class="cable" viewBox="0 0 110 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M 55 0 C 55 24 48 36 56 60 C 64 88 32 108 50 132 C 68 156 90 168 70 188 C 56 202 30 200 36 188" />
+      <circle class="plug" cx="36" cy="188" r="3" />
     </svg>
     </div>
   </main>

@@ -7,18 +7,20 @@
   <meta name="description" content="Growth consultant. Say hi." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200;300&family=JetBrains+Mono:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap" />
   <style>
     :root {
-      --bg: #0a0e1f;
-      --accent: #67e8f9;
-      --accent-dim: rgba(103, 232, 249, 0.7);
-      --accent-faint: rgba(103, 232, 249, 0.06);
-      --device-bg: #10172b;
-      --device-border: rgba(103, 232, 249, 0.33);
-      --device-glow: rgba(103, 232, 249, 0.13);
-      --font-display: "Inter Tight", ui-sans-serif, system-ui, -apple-system, sans-serif;
-      --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+      --bg: #06090f;
+      --accent: #5fffcb;
+      --accent-dim: rgba(95, 255, 203, 0.75);
+      --accent-faint: rgba(95, 255, 203, 0.06);
+      --device-bg: #0f1a16;
+      --device-border: rgba(95, 255, 203, 0.28);
+      --device-glow: rgba(95, 255, 203, 0.18);
+      --cable: #c9c9c9;
+      --font-pixel: "VT323", ui-monospace, monospace;
+      --font-display: var(--font-pixel);
+      --font-mono: var(--font-pixel);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,65 +52,70 @@
 
     .logo {
       width: 44px;
-      height: 32px;
+      height: 36px;
       color: var(--accent);
     }
 
     .logo svg { width: 100%; height: 100%; display: block; }
 
+    .logo rect {
+      transform-origin: 50% 100%;
+      transform-box: fill-box;
+      animation: eq-bar 1.2s ease-in-out infinite;
+    }
+    .logo rect:nth-child(1) { animation-delay: 0.00s; }
+    .logo rect:nth-child(2) { animation-delay: 0.12s; }
+    .logo rect:nth-child(3) { animation-delay: 0.24s; }
+    .logo rect:nth-child(4) { animation-delay: 0.36s; }
+    .logo rect:nth-child(5) { animation-delay: 0.48s; }
+    .logo rect:nth-child(6) { animation-delay: 0.60s; }
+
+    @keyframes eq-bar {
+      0%, 100% { transform: scaleY(0.25); }
+      50%      { transform: scaleY(1); }
+    }
+
     .name {
-      font-family: var(--font-display);
-      font-weight: 200;
-      font-size: clamp(28px, 4.2vw, 38px);
-      letter-spacing: -0.02em;
-      line-height: 1.05;
+      font-family: var(--font-pixel);
+      font-weight: 400;
+      font-size: clamp(36px, 5.2vw, 48px);
+      letter-spacing: 0.02em;
+      line-height: 1;
       color: var(--accent);
+      text-transform: lowercase;
     }
 
     .tagline {
-      font-family: var(--font-mono);
+      font-family: var(--font-pixel);
       font-weight: 400;
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      color: var(--accent-dim);
+      font-size: 20px;
+      letter-spacing: 0.04em;
+      color: var(--accent);
       text-transform: lowercase;
+      line-height: 1.1;
     }
 
     .microcopy {
-      font-family: var(--font-display);
-      font-weight: 300;
-      font-size: 14px;
-      line-height: 1.5;
+      font-family: var(--font-pixel);
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 1.35;
       color: var(--accent-dim);
-      max-width: 280px;
+      max-width: 320px;
     }
 
-    .contact {
-      display: flex;
-      gap: 14px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: lowercase;
-      margin-top: 4px;
-    }
-
-    .contact a {
-      color: var(--accent-dim);
-      text-decoration: none;
-      transition: color 0.2s ease, text-shadow 0.2s ease;
-    }
-
-    .contact a:hover,
-    .contact a:focus-visible {
+    .microcopy a {
       color: var(--accent);
-      text-shadow: 0 0 8px rgba(103, 232, 249, 0.5);
-      outline: none;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(95, 255, 203, 0.35);
+      transition: border-color 0.2s ease, text-shadow 0.2s ease;
     }
 
-    .contact .sep {
-      color: var(--accent-dim);
-      opacity: 0.4;
+    .microcopy a:hover,
+    .microcopy a:focus-visible {
+      border-bottom-color: var(--accent);
+      text-shadow: 0 0 10px rgba(95, 255, 203, 0.55);
+      outline: none;
     }
 
     .player {
@@ -141,14 +148,15 @@
     }
 
     .player-track {
-      font-family: var(--font-mono);
-      font-size: 11px;
+      font-family: var(--font-pixel);
+      font-size: 17px;
       color: var(--accent);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       text-transform: lowercase;
+      line-height: 1;
     }
 
     .player-eq {
@@ -222,6 +230,24 @@
       pointer-events: none;
     }
 
+    .player-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .cable {
+      width: 180px;
+      height: 220px;
+      margin-top: -6px;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .cable path { fill: none; stroke: var(--cable); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .cable .plug { fill: var(--cable); }
+
     @keyframes eq-pulse-a { 0%, 100% { height: 25%; } 50% { height: 85%; } }
     @keyframes eq-pulse-b { 0%, 100% { height: 60%; } 50% { height: 30%; } }
     @keyframes eq-pulse-c { 0%, 100% { height: 40%; } 30% { height: 95%; } 70% { height: 20%; } }
@@ -246,12 +272,11 @@
     .stage > * {
       animation: rise-in 0.6s ease-out both;
     }
-    .stage > .logo      { animation-delay: 0ms; }
-    .stage > .name      { animation-delay: 100ms; }
-    .stage > .tagline   { animation-delay: 200ms; }
-    .stage > .microcopy { animation-delay: 300ms; }
-    .stage > .player    { animation-delay: 400ms; }
-    .stage > .contact   { animation-delay: 500ms; }
+    .stage > .logo        { animation-delay: 0ms; }
+    .stage > .name        { animation-delay: 100ms; }
+    .stage > .tagline     { animation-delay: 200ms; }
+    .stage > .microcopy   { animation-delay: 300ms; }
+    .stage > .player-wrap { animation-delay: 400ms; }
 
     @media (prefers-reduced-motion: reduce) {
       .stage > * { animation: none !important; }
@@ -282,14 +307,25 @@
 </head>
 <body>
   <main class="stage">
-    <div class="logo" aria-label="Daniel Plaschg">
-      <svg viewBox="0 0 44 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <text x="22" y="25" text-anchor="middle" font-family='"Inter Tight", ui-sans-serif, sans-serif' font-weight="200" font-size="26" letter-spacing="-1" fill="currentColor">DP</text>
+    <div class="logo" aria-label="Daniel Plaschg" role="img">
+      <svg viewBox="0 0 13 9" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0"  y="0" width="1" height="9" fill="currentColor"/>
+        <rect x="2"  y="0" width="1" height="9" fill="currentColor"/>
+        <rect x="4"  y="0" width="1" height="9" fill="currentColor"/>
+        <rect x="6"  y="0" width="1" height="9" fill="currentColor"/>
+        <rect x="8"  y="0" width="1" height="9" fill="currentColor"/>
+        <rect x="10" y="0" width="1" height="9" fill="currentColor"/>
       </svg>
     </div>
-    <h1 class="name">Daniel Plaschg</h1>
-    <p class="tagline">growth_consultant</p>
-    <p class="microcopy">Say hi — drop me a line whenever.</p>
+    <h1 class="name">daniel plaschg</h1>
+    <p class="tagline">growth consultant</p>
+    <p class="microcopy">
+      say hi anytime —
+      <a href="# INSTAGRAM_URL" target="_blank" rel="noopener noreferrer">instagram</a>,
+      <a href="# LINKEDIN_URL" target="_blank" rel="noopener noreferrer">linkedin</a>,
+      or <a href="mailto:daniel.plaschg@gmail.com">email</a>.
+    </p>
+    <div class="player-wrap">
     <section class="player" aria-label="Music player">
       <div class="player-display">
         <div class="player-track" id="trackLabel">— —</div>
@@ -316,13 +352,11 @@
         <div class="player-progress-fill" id="progressFill"></div>
       </div>
     </section>
-    <nav class="contact" aria-label="Contact">
-      <a href="mailto:daniel.plaschg@gmail.com">email</a>
-      <span class="sep">·</span>
-      <a href="# LINKEDIN_URL" target="_blank" rel="noopener noreferrer">linkedin</a>
-      <span class="sep">·</span>
-      <a href="# INSTAGRAM_URL" target="_blank" rel="noopener noreferrer">instagram</a>
-    </nav>
+    <svg class="cable" viewBox="0 0 180 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M 90 0 C 90 26 64 44 70 70 C 76 96 124 110 124 138 C 124 162 88 172 64 178 C 40 184 36 200 70 204 C 100 207 116 198 108 188" />
+      <circle class="plug" cx="108" cy="188" r="3" />
+    </svg>
+    </div>
   </main>
   <script>
     // TODO: replace with your own tracks. You are responsible for the rights.
